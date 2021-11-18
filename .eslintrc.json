@@ -23,6 +23,12 @@
             {
                 "js": "ignorePackages"
             }
-           ]
+           ],
+       "react/function-component-definition": [1,
+        {
+            "namedComponents": "arrow-function",
+            "unnamedComponents": "arrow-function"
+        }
+    ]
     }
 }
