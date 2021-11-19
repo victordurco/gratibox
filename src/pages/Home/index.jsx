@@ -24,7 +24,7 @@ const Home = () => {
             fontSize="18px"
             onClickFunction={() => navigate('/cadastro')}
           />
-          <SignUpButton>Já sou grato</SignUpButton>
+          <SignUpButton onClick={() => navigate('/entrar')}> Já sou grato</SignUpButton>
         </BackgroundBottom>
       </Background>
     </PageContainer>

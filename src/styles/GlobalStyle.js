@@ -23,7 +23,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     border: 0;
     font-size: 100%;
-    font: inherit;
+    font-family: 'Roboto', sans-serif;
     vertical-align: baseline;
     }
     /* HTML5 display-role reset for older browsers */
@@ -58,6 +58,7 @@ const GlobalStyle = createGlobalStyle`
     }
     button{
         border: none;
+        font-family: 'Roboto', sans-serif;
     }
     strong { font-weight: bold}
     a, :link{
