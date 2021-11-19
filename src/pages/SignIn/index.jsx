@@ -118,7 +118,7 @@ const Container = styled.div`
 `;
 
 const SignUpButton = styled.button`
-   width: 60vw;
+  width: 60vw;
   max-width: 400px;
   height: 56px;
   color: white;
@@ -129,6 +129,7 @@ const SignUpButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 
 const Form = styled.form`
