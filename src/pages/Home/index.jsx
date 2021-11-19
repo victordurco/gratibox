@@ -1,25 +1,35 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import Image from '../../assets/image05.webp';
 import Button from '../shared/Button';
 
-const Home = () => (
-  <PageContainer>
-    <Background>
-      <BackgroundTop>
-        <Title>Bem vindo ao GratiBox</Title>
-        <SubTitle>
-          Receba em casa um box com chás, produtos organicos, incensos e muito mais...
-        </SubTitle>
-      </BackgroundTop>
-      <ImageBackground src={Image} alt="image background" />
-      <BackgroundBottom>
-        <Button width="50%" height="45px" text="Quero começar" fontSize="18px" />
-        <SignUpButton>Já sou grato</SignUpButton>
-      </BackgroundBottom>
-    </Background>
-  </PageContainer>
-);
+const Home = () => {
+  const navigate = useNavigate();
+  return (
+    <PageContainer>
+      <Background>
+        <BackgroundTop>
+          <Title>Bem vindo ao GratiBox</Title>
+          <SubTitle>
+            Receba em casa um box com chás, produtos organicos, incensos e muito mais...
+          </SubTitle>
+        </BackgroundTop>
+        <ImageBackground src={Image} alt="image background" />
+        <BackgroundBottom>
+          <Button
+            width="50%"
+            height="45px"
+            text="Quero começar"
+            fontSize="18px"
+            onClickFunction={() => navigate('/cadastro')}
+          />
+          <SignUpButton>Já sou grato</SignUpButton>
+        </BackgroundBottom>
+      </Background>
+    </PageContainer>
+  );
+};
 
 export default Home;
 

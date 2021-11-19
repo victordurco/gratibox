@@ -154,7 +154,7 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-image: linear-gradient(to top, #303763, #6D7CE4);
+    background-image: linear-gradient(to top, #4D65A8,#6D7CE4);
 `;
 
 const Form = styled.form`
