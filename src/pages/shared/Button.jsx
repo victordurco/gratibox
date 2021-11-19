@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
+import { Ellipsis } from 'react-spinners-css';
 
 const Button = ({
-  text, type, onClickFunction, height, width, marginTop, fontSize,
+  text, type, onClickFunction, height, width, marginTop, fontSize, loading,
 }) => (
   <PageButton
     type={type}
@@ -12,8 +13,13 @@ const Button = ({
     width={width}
     marginTop={marginTop}
     fontSize={fontSize}
+    loading={loading}
   >
-    {text}
+    {loading ? (
+      <Ellipsis color="#fff" width="20px" />
+    ) : (
+      text
+    )}
   </PageButton>
 );
 
@@ -32,8 +38,11 @@ const PageButton = styled.button`
     margin-top: ${(props) => props.marginTop};
     margin-bottom: ${(props) => props.marginBottom};
     background-color: #8C97EA;
-    cursor: pointer;
-
+    opacity: ${(props) => (props.loading ? '0.5' : '1')};
+    cursor: ${(props) => (props.loading ? 'not-allowed' : 'pointer')};
+    display: flex;
+    align-items: center;
+    justify-content: center;
     :hover{
       border: 1px #303763 solid;
       background-color: #6D7CE4;
