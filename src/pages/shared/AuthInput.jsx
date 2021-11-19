@@ -2,10 +2,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const AuthInput = ({ placeholder, type }) => (
+const AuthInput = ({
+  placeholder, type, value, onChange,
+}) => (
   <Input
     placeholder={placeholder}
     type={type}
+    value={value}
+    onChange={onChange}
   />
 );
 

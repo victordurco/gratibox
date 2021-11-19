@@ -1,27 +1,149 @@
-import React from 'react';
+/* eslint-disable consistent-return */
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import WelcomeTitle from '../shared/WelcomeTitle';
 import AuthInput from '../shared/AuthInput';
 import Button from '../shared/Button';
+import { signUp } from '../../services/gratibox.services';
 
-const SignUp = () => (
-  <Container>
-    <Form>
-      <WelcomeTitle />
-      <AuthInput placeholder="Nome" type="text" />
-      <AuthInput placeholder="Email" type="email" />
-      <AuthInput placeholder="Senha" type="password" />
-      <AuthInput placeholder="Confirmar senha" type="password" />
-      <Button
-        type="submit"
-        text="Cadastrar"
-        width="280px"
-        height="56px"
-        marginTop="62px"
-      />
-    </Form>
-  </Container>
-);
+const SignUp = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+
+  const handleChange = (prop) => (event) => {
+    setFormData({ ...formData, [prop]: event.target.value });
+  };
+
+  const passwordConfirmationIsValid = () => {
+    if (formData.password === formData.confirmPassword) {
+      return true;
+    }
+    return false;
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (formData.name.length < 3) {
+      return (
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Seu nome deve conter pelo menos 3 letras',
+        })
+      );
+    }
+
+    if (formData.password.length < 6) {
+      return (
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Sua senha deve conter pelo menos 6 caracteres',
+        })
+      );
+    }
+
+    if (!passwordConfirmationIsValid) {
+      return (
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Sua confirmação de senha falhou',
+        })
+      );
+    }
+
+    const body = {
+      name: formData.name,
+      email: formData.email,
+      password: formData.password,
+    };
+    signUp(body)
+      .then(() => {
+        Swal.fire({
+          title: 'Sucesso',
+          text: 'Cadastro realizado!',
+          icon: 'success',
+          confirmButtonColor: '#6D7CE4',
+          confirmButtonText: 'Entrar',
+        }).then(() => {
+          navigate('/');
+        });
+      })
+      .catch((error) => {
+        const { status } = error.response;
+        if (status === 400) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Preencha os dados corretamente',
+          });
+          return;
+        }
+
+        if (status === 409) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Esse e-mail já é cadastrado',
+          });
+          return;
+        }
+
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Algo deu errado com o cadastro',
+        });
+      });
+  };
+
+  return (
+    <Container>
+      <Form onSubmit={handleSubmit}>
+        <WelcomeTitle />
+        <AuthInput
+          placeholder="Nome"
+          type="text"
+          value={formData.name}
+          onChange={handleChange('name')}
+        />
+        <AuthInput
+          placeholder="Email"
+          type="email"
+          value={formData.email}
+          onChange={handleChange('email')}
+        />
+        <AuthInput
+          placeholder="Senha"
+          type="password"
+          value={formData.password}
+          onChange={handleChange('password')}
+        />
+        <AuthInput
+          placeholder="Confirmar senha"
+          type="password"
+          value={formData.confirmPassword}
+          onChange={handleChange('confirmPassword')}
+        />
+        <Button
+          type="submit"
+          text="Cadastrar"
+          width="280px"
+          height="56px"
+          marginTop="62px"
+        />
+      </Form>
+    </Container>
+  );
+};
 
 export default SignUp;
 
