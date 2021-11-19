@@ -44,7 +44,7 @@ const PageButton = styled.button`
     align-items: center;
     justify-content: center;
     :hover{
-      border: 1px #303763 solid;
+      border: 1px #6471c7ac solid;
       background-color: #6D7CE4;
     }
 `;
