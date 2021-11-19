@@ -10,6 +10,7 @@ import { signUp } from '../../services/gratibox.services';
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -30,7 +31,9 @@ const SignUp = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setLoading(true);
     if (formData.name.length < 3) {
+      setLoading(false);
       return (
         Swal.fire({
           icon: 'error',
@@ -41,6 +44,7 @@ const SignUp = () => {
     }
 
     if (formData.password.length < 6) {
+      setLoading(false);
       return (
         Swal.fire({
           icon: 'error',
@@ -51,6 +55,7 @@ const SignUp = () => {
     }
 
     if (!passwordConfirmationIsValid) {
+      setLoading(false);
       return (
         Swal.fire({
           icon: 'error',
@@ -74,11 +79,13 @@ const SignUp = () => {
           confirmButtonColor: '#6D7CE4',
           confirmButtonText: 'Entrar',
         }).then(() => {
+          setLoading(false);
           navigate('/');
         });
       })
       .catch((error) => {
         const { status } = error.response;
+        setLoading(false);
         if (status === 400) {
           Swal.fire({
             icon: 'error',
@@ -139,6 +146,7 @@ const SignUp = () => {
           width="280px"
           height="56px"
           marginTop="62px"
+          loading={loading}
         />
       </Form>
     </Container>

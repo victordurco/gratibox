@@ -12,6 +12,7 @@ import UserContext from '../../contexts/UserContext';
 const SignIn = () => {
   const navigate = useNavigate();
   const { setUser, user } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -23,8 +24,10 @@ const SignIn = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setLoading(true);
 
     if (formData.password.length < 6) {
+      setLoading(false);
       return (
         Swal.fire({
           icon: 'error',
@@ -38,9 +41,11 @@ const SignIn = () => {
       .then((response) => {
         localStorage.setItem('token', JSON.stringify(response.data.token));
         setUser({ ...response.data });
+        setLoading(false);
         navigate('/');
       }).catch((error) => {
         const { status } = error.response;
+        setLoading(false);
         if (status === 404) {
           Swal.fire({
             icon: 'error',
@@ -98,6 +103,7 @@ const SignIn = () => {
           type="submit"
           marginTop="35px"
           marginBottom="15px"
+          loading={loading}
         />
         <SignUpButton onClick={() => navigate('/cadastro')}>Ainda não sou grato</SignUpButton>
       </Form>
