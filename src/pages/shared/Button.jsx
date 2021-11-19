@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Button = ({
-  text, type, onClickFunction, height, width, marginTop,
+  text, type, onClickFunction, height, width, marginTop, fontSize,
 }) => (
   <PageButton
     type={type}
@@ -11,6 +11,7 @@ const Button = ({
     height={height}
     width={width}
     marginTop={marginTop}
+    fontSize={fontSize}
   >
     {text}
   </PageButton>
@@ -23,7 +24,7 @@ const PageButton = styled.button`
     max-width: 480px;
     height: ${(props) => props.height};
     font-weight: 500;
-    font-size: 24px;
+    font-size: ${(props) => (props.fontSize ? props.fontSize : '24px')};
     padding: 5px 15px;
     color: white;
     border-radius: 10px;
