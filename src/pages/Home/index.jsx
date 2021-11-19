@@ -1,24 +1,35 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import Image from '../../assets/image05.webp';
+import Button from '../shared/Button';
 
-const Home = () => (
-  <PageContainer>
-    <Background>
-      <BackgroundTop>
-        <Title>Bem vindo ao GratiBox</Title>
-        <SubTitle>
-          Receba em casa um box com chás, produtos organicos, incensos e muito mais...
-        </SubTitle>
-      </BackgroundTop>
-      <ImageBackground src={Image} alt="image background" />
-      <BackgroundBottom>
-        <SignInButton>Quero começar</SignInButton>
-        <SignUpButton>Já sou grato</SignUpButton>
-      </BackgroundBottom>
-    </Background>
-  </PageContainer>
-);
+const Home = () => {
+  const navigate = useNavigate();
+  return (
+    <PageContainer>
+      <Background>
+        <BackgroundTop>
+          <Title>Bem vindo ao GratiBox</Title>
+          <SubTitle>
+            Receba em casa um box com chás, produtos organicos, incensos e muito mais...
+          </SubTitle>
+        </BackgroundTop>
+        <ImageBackground src={Image} alt="image background" />
+        <BackgroundBottom>
+          <Button
+            width="50%"
+            height="45px"
+            text="Quero começar"
+            fontSize="18px"
+            onClickFunction={() => navigate('/cadastro')}
+          />
+          <SignUpButton>Já sou grato</SignUpButton>
+        </BackgroundBottom>
+      </Background>
+    </PageContainer>
+  );
+};
 
 export default Home;
 
@@ -37,6 +48,7 @@ const Background = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-image: linear-gradient(to top, #4D65A8,#6D7CE4);
 `;
 
 const BackgroundTop = styled.div`
@@ -91,21 +103,6 @@ const BackgroundBottom = styled.div`
 const ImageBackground = styled.img`
   width: 100%;
   border: none;
-`;
-
-const SignInButton = styled.button`
-  width: 50%;
-  max-width: 400px;
-  height: 45px;
-  border-radius: 10px;
-  background-color: #8C97EA;
-  color: white;
-  font-size:18px;
-  font-weight: 700;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
 `;
 
 const SignUpButton = styled.button`
