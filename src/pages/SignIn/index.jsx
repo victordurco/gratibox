@@ -1,12 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
+import Button from '../shared/Button';
+import WelcomeTitle from '../shared/WelcomeTitle';
+import AuthInput from '../shared/AuthInput';
 
 const SignIn = () => (
   <Container>
-    <Title>Bem vindo ao GratiBox</Title>
-    <Input placeholder="E-mail" type="email" />
-    <Input placeholder="Senha" type="password" />
-    <LoginButton>Login</LoginButton>
+    <WelcomeTitle />
+    <AuthInput placeholder="Email" type="email" />
+    <AuthInput placeholder="Senha" type="password" />
+    <Button
+      width="60vw"
+      height="56px"
+      text="Login"
+      type="submit"
+      marginTop="35px"
+      marginBottom="15px"
+    />
     <SignUpButton>Ainda não sou grato</SignUpButton>
   </Container>
 );
@@ -16,43 +26,11 @@ export default SignIn;
 const Container = styled.div`
     width: 100%;
     height: 100vh;
-    background-color: #6D7CE4;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-`;
-
-const Title = styled.span`
-    font-size: 28px;
-    font-weight: 700;
-    color: white;
-    margin-bottom:40px;
-`;
-
-const Input = styled.input`
-  width: 80vw;
-  max-width: 400px;
-  height: 64px;
-  border-radius:10px;
-  padding: 5px 18px;
-  border: none;
-  margin-bottom: 8px;
-`;
-
-const LoginButton = styled.button`
-  width: 60vw;
-  max-width: 400px;
-  height: 56px;
-  color: white;
-  font-size:32px;
-  font-weight: 700;
-  border-radius:10px;
-  background-color: #8C97EA;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 35px 0 15px 0;
+    background-image: linear-gradient(to top, #4D65A8,#6D7CE4);
 `;
 
 const SignUpButton = styled.button`
