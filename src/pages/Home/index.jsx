@@ -38,6 +38,7 @@ const PageContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+   background-image: linear-gradient(to top, #4D65A8,#6D7CE4);
 `;
 
 const Background = styled.div`
