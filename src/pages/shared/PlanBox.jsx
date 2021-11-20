@@ -1,12 +1,13 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
-import ImportedImage from '../../assets/image02.jpg';
+import MonthlyImage from '../../assets/image02.jpg';
+import WeeklyImage from '../../assets/image04.jpg';
 import Button from './Button';
 
-const PlanBox = ({ description }) => (
+const PlanBox = ({ description, type }) => (
   <Container>
-    <Image src={ImportedImage} alt="plan image" />
+    <Image src={type === 'monthly' ? MonthlyImage : WeeklyImage} alt="plan image" />
     <PlanDescription>{description}</PlanDescription>
     <Button
       text="Assinar"

@@ -24,9 +24,11 @@ const Plans = () => {
         <Subtitle>Você ainda não assinou um plano, que tal começar agora?</Subtitle>
         <PlanBox
           description="Você recebe um box por semana. Ideal para quem quer exercer a gratidão todos os dias."
+          type="weekly"
         />
         <PlanBox
           description="Você recebe um box por mês. Ideal para quem está começando agora."
+          type="monthly"
         />
       </Background>
     </PageContainer>
