@@ -2,11 +2,12 @@
 import React, { useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import PlanBox from '../shared/PlanBox';
 import UserContext from '../../contexts/UserContext';
 import WelcomeUserTitle from '../shared/WelcomeUserTitle';
+import Image from '../../assets/image03.jpg';
+import Button from '../shared/Button';
 
-const Plans = () => {
+const Subscribe = () => {
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
   let userFirstName;
@@ -25,21 +26,22 @@ const Plans = () => {
     <PageContainer>
       <Background>
         <WelcomeUserTitle user={userFirstName || 'User'} />
-        <Subtitle>Você ainda não assinou um plano, que tal começar agora?</Subtitle>
-        <PlanBox
-          description="Você recebe um box por semana. Ideal para quem quer exercer a gratidão todos os dias."
-          type="weekly"
-        />
-        <PlanBox
-          description="Você recebe um box por mês. Ideal para quem está começando agora."
-          type="monthly"
+        <Subtitle>“Agradecer é arte de atrair coisas boas”</Subtitle>
+        <SubscribeBox>
+          <BoxImage src={Image} />
+        </SubscribeBox>
+        <Button
+          text="Proximo"
+          width="47%"
+          height="40px"
+          marginTop="8px"
         />
       </Background>
     </PageContainer>
   );
 };
 
-export default Plans;
+export default Subscribe;
 
 const PageContainer = styled.div`
   height:100%;
@@ -50,6 +52,7 @@ const PageContainer = styled.div`
 
 const Background = styled.div`
   height:100%;
+  min-height: 100vh;
   width:100%;
   max-width: 480px;
   display: flex;
@@ -66,4 +69,18 @@ const Subtitle = styled.span`
   color: white;
   text-align: center;
   margin-bottom: 30px;
+`;
+
+const SubscribeBox = styled.div`
+  width: 100%;
+  height: 430px;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const BoxImage = styled.img`
+  height: 172px;
 `;
