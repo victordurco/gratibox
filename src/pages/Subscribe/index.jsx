@@ -1,7 +1,7 @@
 /* eslint-disable prefer-destructuring */
 import React, { useEffect, useContext, useState } from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import UserContext from '../../contexts/UserContext';
 import WelcomeUserTitle from '../shared/WelcomeUserTitle';
 import Image from '../../assets/image03.jpg';
@@ -10,9 +10,30 @@ import DropPlanDetail from '../shared/DropPlanDetail';
 
 const Subscribe = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const planId = Number(id.replace(':', ''));
+  const plan = planId === 1 ? { weekly: true } : { monthly: true };
   const [showPlanType, setShowPlanType] = useState(false);
   const [showDelivery, setShowDelivery] = useState(false);
   const [showProducts, setShowProducts] = useState(false);
+  const [deliveryDetails, setDeliveryDetails] = useState(
+    planId === 1
+      ? {
+        monday: false,
+        wednesday: false,
+        friday: false,
+      }
+      : {
+        day01: false,
+        day10: false,
+        day20: false,
+      },
+  );
+  const [products, setProducts] = useState({
+    tea: false,
+    incense: false,
+    organics: false,
+  });
 
   const { user } = useContext(UserContext);
   let userFirstName;
@@ -22,7 +43,7 @@ const Subscribe = () => {
   }
 
   useEffect(() => {
-    if (!user) {
+    if (!user || user.planType) {
       navigate('/entrar');
     }
   }, [user]);
@@ -38,16 +59,21 @@ const Subscribe = () => {
             title="Plano"
             show={showPlanType}
             setShow={setShowPlanType}
+            items={plan}
           />
           <DropPlanDetail
             title="Entrega"
             show={showDelivery}
             setShow={setShowDelivery}
+            items={deliveryDetails}
+            setItems={setDeliveryDetails}
           />
           <DropPlanDetail
             title="Quero receber"
             show={showProducts}
             setShow={setShowProducts}
+            items={products}
+            setItems={setProducts}
           />
         </SubscribeBox>
         <Button

@@ -10,7 +10,11 @@ const PlanBox = ({ description, type }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate('/assinar');
+    if (type === 'weekly') {
+      navigate('/assinar/:1');
+    } else {
+      navigate('/assinar/:2');
+    }
   };
 
   return (

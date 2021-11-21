@@ -1,10 +1,55 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { ArrowDownOutline, ArrowUpOutline } from 'react-ionicons';
 
-const DropPlanDetail = ({ show, setShow, title }) => {
-  const [checked, setChecked] = useState(false);
+const DropPlanDetail = ({
+  show, setShow, title, items, setItems,
+}) => {
+  const itemsArray = Object.keys(items);
+
+  const getCheckboxTitle = (option) => {
+    let optionTitle;
+    switch (option) {
+      case 'weekly':
+        optionTitle = 'Semanal';
+        break;
+      case 'monthly':
+        optionTitle = 'Mensal';
+        break;
+      case 'monday':
+        optionTitle = 'Segunda-feira';
+        break;
+      case 'wednesday':
+        optionTitle = 'Quarta-feira';
+        break;
+      case 'friday':
+        optionTitle = 'Sexta-feira';
+        break;
+      case 'day01':
+        optionTitle = 'Dia 01';
+        break;
+      case 'day10':
+        optionTitle = 'Dia 10';
+        break;
+      case 'day20':
+        optionTitle = 'Dia 20';
+        break;
+      case 'tea':
+        optionTitle = 'Chás';
+        break;
+      case 'incense':
+        optionTitle = 'Incensos';
+        break;
+      case 'organics':
+        optionTitle = 'Produtos orgânicos';
+        break;
+      default:
+        break;
+    }
+    return optionTitle;
+  };
+
   return (
     <PlanDetail show={show} onClick={() => setShow((value) => !value)}>
       <TitleWrapper>
@@ -29,15 +74,22 @@ const DropPlanDetail = ({ show, setShow, title }) => {
             )}
         </ArrowButton>
       </TitleWrapper>
-      <Checkbox
-        checked={checked}
-        onClick={
-          (e) => {
-            e.stopPropagation();
-            setChecked((value) => !value);
-          }
-        }
-      />
+      <OptionsWrapper>
+        {itemsArray.map((item) => (
+          <Option>
+            <Checkbox
+              checked={items[item]}
+              onClick={
+                (e) => {
+                  e.stopPropagation();
+                  setItems((value) => !value);
+                }
+              }
+            />
+            <OptionTitle>{getCheckboxTitle(item)}</OptionTitle>
+          </Option>
+        ))}
+      </OptionsWrapper>
     </PlanDetail>
   );
 };
@@ -90,4 +142,23 @@ const Checkbox = styled.div`
   border: 1px solid #4D65A8;
   background-color: ${(props) => (props.checked ? '#4D65A8' : 'white')};
   transition: all 450ms ease-out;
+`;
+
+const Option = styled.div`
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 8px;
+`;
+
+const OptionTitle = styled.span`
+  font-size: 18px;
+  font-weight: 400;
+  color: inherit;
+`;
+
+const OptionsWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 `;
