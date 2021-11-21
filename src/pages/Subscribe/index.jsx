@@ -55,6 +55,7 @@ const Subscribe = () => {
           width="47%"
           height="40px"
           marginTop="8px"
+          marginBottom="18px"
         />
       </Background>
     </PageContainer>

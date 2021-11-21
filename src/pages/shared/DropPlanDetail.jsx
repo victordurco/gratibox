@@ -1,32 +1,46 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ArrowDownOutline, ArrowUpOutline } from 'react-ionicons';
 
-const DropPlanDetail = ({ show, setShow, title }) => (
-  <PlanDetail show={show} onClick={() => setShow((value) => !value)}>
-    <DetailTitle>{title}</DetailTitle>
-    <ArrowButton onClick={() => setShow((value) => !value)}>
-      {!show
-        ? (
-          <ArrowDownOutline
-            color="#4D65A8"
-            height="30px"
-            width="30px"
-            onClick={() => setShow((value) => !value)}
-          />
-        )
-        : (
-          <ArrowUpOutline
-            color="#4D65A8"
-            height="30px"
-            width="30px"
-            onClick={() => setShow((value) => !value)}
-          />
-        )}
-    </ArrowButton>
-  </PlanDetail>
-);
+const DropPlanDetail = ({ show, setShow, title }) => {
+  const [checked, setChecked] = useState(false);
+  return (
+    <PlanDetail show={show} onClick={() => setShow((value) => !value)}>
+      <TitleWrapper>
+        <DetailTitle>{title}</DetailTitle>
+        <ArrowButton onClick={() => setShow((value) => !value)}>
+          {!show
+            ? (
+              <ArrowDownOutline
+                color="#4D65A8"
+                height="30px"
+                width="30px"
+                onClick={() => setShow((value) => !value)}
+              />
+            )
+            : (
+              <ArrowUpOutline
+                color="#4D65A8"
+                height="30px"
+                width="30px"
+                onClick={() => setShow((value) => !value)}
+              />
+            )}
+        </ArrowButton>
+      </TitleWrapper>
+      <Checkbox
+        checked={checked}
+        onClick={
+          (e) => {
+            e.stopPropagation();
+            setChecked((value) => !value);
+          }
+        }
+      />
+    </PlanDetail>
+  );
+};
 
 export default DropPlanDetail;
 
@@ -37,7 +51,8 @@ const PlanDetail = styled.div`
   border-radius: 5px;
   padding: 0 12px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: space-between;
   font-size:18px;
   color: #4D65A8;
   cursor: pointer;
@@ -46,6 +61,7 @@ const PlanDetail = styled.div`
   top: 0;
   transition: all 450ms ease-out;
   margin-bottom: 8px;
+  overflow: hidden;
 `;
 
 const ArrowButton = styled.button`
@@ -62,4 +78,16 @@ const DetailTitle = styled.span`
   position: relative;
   top: 12px;
   left: 0;
+`;
+
+const TitleWrapper = styled.span`
+  margin-bottom:30px
+`;
+
+const Checkbox = styled.div`
+  width: 20px;
+  height: 20px;
+  border: 1px solid #4D65A8;
+  background-color: ${(props) => (props.checked ? '#4D65A8' : 'white')};
+  transition: all 450ms ease-out;
 `;
