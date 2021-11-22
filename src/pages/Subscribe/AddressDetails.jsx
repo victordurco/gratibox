@@ -24,7 +24,28 @@ const AddressDetails = () => {
   });
 
   const handleChange = (prop) => (event) => {
-    setAddressData({ ...addressData, [prop]: event.target.value });
+    if (prop === 'cep') {
+      setAddressData({ ...addressData, [prop]: event.target.value });
+      cep(event.target.value)
+        .then((res) => {
+          if (res.cep) {
+            setAddressData({
+              ...addressData,
+              address: `${res.street}, ${res.neighborhood}`,
+              cep: res.cep,
+              city: res.city,
+              state: res.state,
+            });
+          }
+        });
+    } else {
+      setAddressData({ ...addressData, [prop]: event.target.value });
+    }
+  };
+
+  const handleStateChange = (acronym) => {
+    setAddressData({ ...addressData, state: acronym });
+    setShowStatesMenu(false);
   };
 
   const { user } = useContext(UserContext);
@@ -40,7 +61,7 @@ const AddressDetails = () => {
     }
     console.log(planDetails);
     cep('17048794')
-      .then(console.log);
+      .then((res) => console.log(res));
   }, [user]);
 
   return (
@@ -53,20 +74,24 @@ const AddressDetails = () => {
           <LargeInput
             placeholder="Nome completo"
             value={addressData.name}
-            onChange={() => handleChange('name')}
+            onChange={handleChange('name')}
           />
           <LargeInput
             placeholder="Endereço"
             value={addressData.address}
-            onChange={() => handleChange('address')}
+            onChange={handleChange('address')}
           />
           <LargeInput
             placeholder="CEP"
             value={addressData.cep}
-            onChange={() => handleChange('cep')}
+            onChange={handleChange('cep')}
           />
           <SmallInputsWrapper>
-            <CityInput placeholder="Cidade" />
+            <CityInput
+              placeholder="Cidade"
+              value={addressData.city}
+              onChange={handleChange('city')}
+            />
             <StateInput onClick={() => setShowStatesMenu((value) => !value)}>
               <SelectedState>{addressData.state}</SelectedState>
               <ArrowButton onClick={() => setShowStatesMenu((value) => !value)}>
@@ -91,7 +116,13 @@ const AddressDetails = () => {
             </StateInput>
           </SmallInputsWrapper>
           <StatesOptions show={showStatesMenu}>
-            {states.map((item) => <StateOption>{item.acronym}</StateOption>)}
+            {states.map((item) => (
+              <StateOption
+                onClick={() => handleStateChange(item.acronym)}
+              >
+                {item.acronym}
+              </StateOption>
+            ))}
           </StatesOptions>
         </SubscribeBox>
         <Button
@@ -154,7 +185,7 @@ const BoxImage = styled.img`
 const LargeInput = styled.input`
   width: 100%;
   height: 44px;
-  background-color:#E0D1ED9E;
+  background-color:#E0D1ED9E;;
   border: none;
   border-radius: 5px;
   font-size:18px;
