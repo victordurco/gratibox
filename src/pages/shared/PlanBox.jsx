@@ -1,22 +1,36 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import MonthlyImage from '../../assets/image02.jpg';
 import WeeklyImage from '../../assets/image04.jpg';
 import Button from './Button';
 
-const PlanBox = ({ description, type }) => (
-  <Container>
-    <Image src={type === 'monthly' ? MonthlyImage : WeeklyImage} alt="plan image" />
-    <PlanDescription>{description}</PlanDescription>
-    <Button
-      text="Assinar"
-      width="47%"
-      height="40px"
-      marginTop="44px"
-    />
-  </Container>
-);
+const PlanBox = ({ description, type }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (type === 'weekly') {
+      navigate('/assinar/:1');
+    } else {
+      navigate('/assinar/:2');
+    }
+  };
+
+  return (
+    <Container>
+      <Image src={type === 'monthly' ? MonthlyImage : WeeklyImage} alt="plan image" />
+      <PlanDescription>{description}</PlanDescription>
+      <Button
+        text="Assinar"
+        width="47%"
+        height="40px"
+        marginTop="44px"
+        onClickFunction={handleClick}
+      />
+    </Container>
+  );
+};
 
 export default PlanBox;
 

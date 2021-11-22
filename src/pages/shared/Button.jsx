@@ -13,7 +13,7 @@ const Button = ({
     width={width}
     marginTop={marginTop}
     fontSize={fontSize}
-    loading={loading}
+    loading={loading ? 1 : 0}
   >
     {loading ? (
       <Ellipsis color="#fff" width="20px" />

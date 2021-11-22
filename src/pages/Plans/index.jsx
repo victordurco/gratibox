@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 import React, { useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
@@ -8,19 +9,22 @@ import WelcomeUserTitle from '../shared/WelcomeUserTitle';
 const Plans = () => {
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
-  const usernameArray = user.name.split(' ');
-  const userFirstName = usernameArray[0];
+  let userFirstName;
+  if (user) {
+    const usernameArray = user.name.split(' ');
+    userFirstName = usernameArray[0];
+  }
 
   useEffect(() => {
-    if (!user || user.planType) {
+    if (!user) {
       navigate('/entrar');
     }
-  }, []);
+  }, [user]);
 
   return (
     <PageContainer>
       <Background>
-        <WelcomeUserTitle user={userFirstName} />
+        <WelcomeUserTitle user={userFirstName || 'User'} />
         <Subtitle>Você ainda não assinou um plano, que tal começar agora?</Subtitle>
         <PlanBox
           description="Você recebe um box por semana. Ideal para quem quer exercer a gratidão todos os dias."
