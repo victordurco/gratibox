@@ -9,7 +9,7 @@ import UserContext from '../../contexts/UserContext';
 import WelcomeUserTitle from '../shared/WelcomeUserTitle';
 import Image from '../../assets/image03.jpg';
 import Button from '../shared/Button';
-import { getStates } from '../../services/gratibox.services';
+import { getStates, subscribe } from '../../services/gratibox.services';
 
 const AddressDetails = () => {
   const navigate = useNavigate();
@@ -22,6 +22,7 @@ const AddressDetails = () => {
     userFirstName = usernameArray[0];
   }
 
+  const [loading, setLoading] = useState(false);
   const [states, setStates] = useState();
   const [showStatesMenu, setShowStatesMenu] = useState(false);
   const [addressData, setAddressData] = useState({
@@ -96,6 +97,7 @@ const AddressDetails = () => {
   };
 
   const finishSubscription = () => {
+    setLoading(true);
     localStorage.removeItem('planDetails');
     const subscriptionData = {
       ...planDetails,
@@ -103,8 +105,38 @@ const AddressDetails = () => {
       userId: user.id,
     };
     if (addressDataIsValid()) {
-      console.log(subscriptionData);
-      navigate('/assinatura');
+      subscribe(user.token, subscriptionData)
+        .then(() => {
+          setLoading(false);
+          navigate('/assinatura');
+        })
+        .catch((error) => {
+          const { status } = error.response;
+          setLoading(false);
+          if (status === 400) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Preencha os dados corretamente',
+            });
+            return;
+          }
+
+          if (status === 409) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Essa conta já assina um plano',
+            });
+            return;
+          }
+
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Algo deu errado com a assinatura',
+          });
+        });
     }
   };
 
@@ -196,6 +228,7 @@ const AddressDetails = () => {
           marginTop="8px"
           marginBottom="18px"
           onClickFunction={finishSubscription}
+          loading={loading}
         />
       </Background>
     </PageContainer>
