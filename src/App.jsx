@@ -37,13 +37,13 @@ const App = () => {
       <BrowserRouter>
         <GlobalStyle />
         <Routes>
-          <Route path="/" exact element={<Home />} />
-          <Route path="/entrar" exact element={<SignIn />} />
-          <Route path="/cadastro" exact element={<SignUp />} />
-          <Route path="/planos" exact element={<Plans />} />
-          <Route path="/assinar/:id" exact element={<Subscribe />} />
-          <Route path="/assinar/:id/finalizar" exact element={<AddressDetails />} />
-          <Route path="/assinatura" exact element={<Subscription />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/entrar" element={<SignIn />} />
+          <Route path="/cadastro" element={<SignUp />} />
+          <Route path="/planos" element={<Plans />} />
+          <Route path="/assinar/:id" element={<Subscribe />} />
+          <Route path="/assinar/:id/finalizar" element={<AddressDetails />} />
+          <Route path="/assinatura" element={<Subscription />} />
           <Route path="*" element={<Home />} />
         </Routes>
       </BrowserRouter>

@@ -32,6 +32,7 @@ um gif da aplicação bem maneiro -->
 - [x] subscribe to a plan
 - [x] choose between weekly or monthly plan
 - [x] access plan details and upcoming delivery dates
+- [_] evaluate deliveries
 
 </br>
 
