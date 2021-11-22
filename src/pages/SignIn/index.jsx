@@ -1,5 +1,5 @@
 /* eslint-disable consistent-return */
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -11,7 +11,7 @@ import UserContext from '../../contexts/UserContext';
 
 const SignIn = () => {
   const navigate = useNavigate();
-  const { setUser, user } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -77,12 +77,6 @@ const SignIn = () => {
         }
       });
   };
-
-  useEffect(() => {
-    if (user) {
-      navigate('/');
-    }
-  }, []);
 
   return (
     <Container>
