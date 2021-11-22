@@ -1,7 +1,9 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable prefer-destructuring */
 import React, { useEffect, useContext, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import UserContext from '../../contexts/UserContext';
 import WelcomeUserTitle from '../shared/WelcomeUserTitle';
 import Image from '../../assets/image03.jpg';
@@ -60,10 +62,52 @@ const Subscribe = () => {
     });
   };
 
+  const planDataIsValid = () => {
+    let numberOfProducts = 0;
+    let numberOfDeliveryDays = 0;
+    const chosenPlanId = planId;
+
+    Object.keys(deliveryDetails).forEach((day) => {
+      if (deliveryDetails[day]) numberOfDeliveryDays++;
+    });
+
+    Object.keys(products).forEach((product) => {
+      if (products[product]) numberOfProducts++;
+    });
+
+    if (numberOfProducts <= 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Selecione pelo menos um produto',
+      });
+      return false;
+    }
+    if (numberOfDeliveryDays !== 1) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Escolha um dia para entrega',
+      });
+      return false;
+    }
+    if (chosenPlanId !== 1 && chosenPlanId !== 2) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Plano inválido',
+      });
+      return false;
+    }
+    return true;
+  };
+
   const handleButtonClick = () => {
-    const planDetails = createFinalPlanObject();
-    localStorage.setItem('planDetails', JSON.stringify(planDetails));
-    navigate('finalizar');
+    if (planDataIsValid()) {
+      const planDetails = createFinalPlanObject();
+      localStorage.setItem('planDetails', JSON.stringify(planDetails));
+      navigate('finalizar');
+    }
   };
 
   useEffect(() => {

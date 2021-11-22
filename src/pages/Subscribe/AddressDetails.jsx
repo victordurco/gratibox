@@ -2,6 +2,7 @@
 import React, { useEffect, useContext, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import cep from 'cep-promise';
 import { ArrowDownOutline, ArrowUpOutline } from 'react-ionicons';
 import UserContext from '../../contexts/UserContext';
@@ -48,6 +49,56 @@ const AddressDetails = () => {
     setShowStatesMenu(false);
   };
 
+  const addressDataIsValid = () => {
+    const cepRegex = /^\d{5}-?\d{3}$/;
+
+    if (addressData.name < 3) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'O nome do destinatário deve conter pelo menos 3 letras',
+      });
+      return false;
+    }
+    if (!addressData.address || !addressData.city || addressData.state === 'Estado' || !addressData.cep) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Preencha todos os campos',
+      });
+      return false;
+    }
+    if (!addressData.address || !addressData.city || addressData.state === 'Estado' || !addressData.cep) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Preencha todos os campos',
+      });
+      return false;
+    }
+    if (!cepRegex.test(addressData.cep)) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Preencha com um cep válido',
+      });
+      return false;
+    }
+    return true;
+  };
+
+  const finishSubscription = () => {
+    localStorage.removeItem('planDetails');
+    const subscriptionData = {
+      ...planDetails,
+      addressData,
+    };
+    if (addressDataIsValid()) {
+      console.log(subscriptionData);
+      navigate('/assinatura');
+    }
+  };
+
   const { user } = useContext(UserContext);
   let userFirstName;
   if (user) {
@@ -59,9 +110,6 @@ const AddressDetails = () => {
     if (!user || user.planType) {
       navigate('/entrar');
     }
-    console.log(planDetails);
-    cep('17048794')
-      .then((res) => console.log(res));
   }, [user]);
 
   return (
@@ -131,6 +179,7 @@ const AddressDetails = () => {
           height="40px"
           marginTop="8px"
           marginBottom="18px"
+          onClickFunction={finishSubscription}
         />
       </Background>
     </PageContainer>
