@@ -9,12 +9,20 @@ import UserContext from '../../contexts/UserContext';
 import WelcomeUserTitle from '../shared/WelcomeUserTitle';
 import Image from '../../assets/image03.jpg';
 import Button from '../shared/Button';
-import states from './states';
+import { getStates } from '../../services/gratibox.services';
 
 const AddressDetails = () => {
   const navigate = useNavigate();
   const planDetails = JSON.parse(localStorage.getItem('planDetails'));
 
+  const { user } = useContext(UserContext);
+  let userFirstName;
+  if (user) {
+    const usernameArray = user.name.split(' ');
+    userFirstName = usernameArray[0];
+  }
+
+  const [states, setStates] = useState();
   const [showStatesMenu, setShowStatesMenu] = useState(false);
   const [addressData, setAddressData] = useState({
     name: '',
@@ -92,6 +100,7 @@ const AddressDetails = () => {
     const subscriptionData = {
       ...planDetails,
       addressData,
+      userId: user.id,
     };
     if (addressDataIsValid()) {
       console.log(subscriptionData);
@@ -99,17 +108,22 @@ const AddressDetails = () => {
     }
   };
 
-  const { user } = useContext(UserContext);
-  let userFirstName;
-  if (user) {
-    const usernameArray = user.name.split(' ');
-    userFirstName = usernameArray[0];
-  }
-
   useEffect(() => {
     if (!user || user.planType) {
       navigate('/entrar');
     }
+
+    getStates()
+      .then((res) => {
+        setStates(res.data);
+      })
+      .catch(() => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Não foi possível carregar os estados',
+        });
+      });
   }, [user]);
 
   return (
@@ -164,13 +178,15 @@ const AddressDetails = () => {
             </StateInput>
           </SmallInputsWrapper>
           <StatesOptions show={showStatesMenu}>
-            {states.map((item) => (
-              <StateOption
-                onClick={() => handleStateChange(item.acronym)}
-              >
-                {item.acronym}
-              </StateOption>
-            ))}
+            {states
+              ? states.map((item) => (
+                <StateOption
+                  onClick={() => handleStateChange(item.acronym)}
+                >
+                  {item.acronym}
+                </StateOption>
+              ))
+              : ''}
           </StatesOptions>
         </SubscribeBox>
         <Button

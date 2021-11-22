@@ -50,15 +50,10 @@ const Subscribe = () => {
       if (deliveryDetails[day]) deliveryDay = day;
     });
 
-    const chosenProducts = [];
-    Object.keys(products).forEach((product) => {
-      if (products[product] === true) chosenProducts.push(product);
-    });
-
     return ({
       planId,
       deliveryDay,
-      chosenProducts,
+      products,
     });
   };
 

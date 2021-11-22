@@ -14,4 +14,8 @@ const signUp = (body) => axios.post(`${URL_API}/sign-up`, body);
 
 const getUser = (token) => axios.get(`${URL_API}/user`, getConfig(token));
 
-export { signIn, signUp, getUser };
+const getStates = () => axios.get(`${URL_API}/states`);
+
+export {
+  signIn, signUp, getUser, getStates,
+};
