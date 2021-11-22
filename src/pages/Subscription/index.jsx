@@ -35,6 +35,7 @@ const Subscription = () => {
   useEffect(() => {
     if (!user) {
       navigate('/entrar');
+      return;
     }
 
     getSubscription(user.token)

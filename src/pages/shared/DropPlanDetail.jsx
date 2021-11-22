@@ -26,13 +26,13 @@ const DropPlanDetail = ({
       case 'friday':
         optionTitle = 'Sexta-feira';
         break;
-      case 'day01':
+      case '1':
         optionTitle = 'Dia 01';
         break;
-      case 'day10':
+      case '10':
         optionTitle = 'Dia 10';
         break;
-      case 'day20':
+      case '20':
         optionTitle = 'Dia 20';
         break;
       case 'tea':
