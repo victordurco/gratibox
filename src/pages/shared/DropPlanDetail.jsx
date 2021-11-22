@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
@@ -50,6 +51,32 @@ const DropPlanDetail = ({
     return optionTitle;
   };
 
+  const toggleCheckbox = (prop) => {
+    setItems({ ...items, [prop]: !items[prop] });
+  };
+
+  const clearAndSetCheckbox = (prop) => {
+    const newItemsStates = {};
+    itemsArray.forEach((item) => {
+      if (item === prop) {
+        newItemsStates[item] = true;
+      } else {
+        newItemsStates[item] = false;
+      }
+    });
+    setItems(newItemsStates);
+  };
+
+  const handleCheckboxChange = (prop) => {
+    if (setItems) {
+      if (title === 'Entrega') {
+        clearAndSetCheckbox(prop);
+      } else {
+        toggleCheckbox(prop);
+      }
+    }
+  };
+
   return (
     <PlanDetail show={show} onClick={() => setShow((value) => !value)}>
       <TitleWrapper>
@@ -76,17 +103,26 @@ const DropPlanDetail = ({
       </TitleWrapper>
       <OptionsWrapper>
         {itemsArray.map((item) => (
-          <Option>
+          <Option key={item}>
             <Checkbox
               checked={items[item]}
               onClick={
                 (e) => {
                   e.stopPropagation();
-                  setItems((value) => !value);
+                  handleCheckboxChange(item);
                 }
               }
             />
-            <OptionTitle>{getCheckboxTitle(item)}</OptionTitle>
+            <OptionTitle onClick={
+              (e) => {
+                e.stopPropagation();
+                handleCheckboxChange(item);
+              }
+            }
+            >
+              {getCheckboxTitle(item)}
+
+            </OptionTitle>
           </Option>
         ))}
       </OptionsWrapper>
@@ -142,6 +178,7 @@ const Checkbox = styled.div`
   border: 1px solid #4D65A8;
   background-color: ${(props) => (props.checked ? '#4D65A8' : 'white')};
   transition: all 450ms ease-out;
+  margin-right: 5px;
 `;
 
 const Option = styled.div`
