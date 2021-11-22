@@ -12,6 +12,7 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Plans from './pages/Plans';
 import Subscribe from './pages/Subscribe';
+import AddressDetails from './pages/Subscribe/AddressDetails';
 import { getUser } from './services/gratibox.services';
 
 const App = () => {
@@ -40,6 +41,7 @@ const App = () => {
           <Route path="/cadastro" exact element={<SignUp />} />
           <Route path="/planos" exact element={<Plans />} />
           <Route path="/assinar/:id" exact element={<Subscribe />} />
+          <Route path="/assinar/:id/finalizar" exact element={<AddressDetails />} />
         </Routes>
       </BrowserRouter>
     </UserContext.Provider>

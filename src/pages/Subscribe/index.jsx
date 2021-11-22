@@ -42,6 +42,30 @@ const Subscribe = () => {
     userFirstName = usernameArray[0];
   }
 
+  const createFinalPlanObject = () => {
+    let deliveryDay = '';
+    Object.keys(deliveryDetails).forEach((day) => {
+      if (deliveryDetails[day]) deliveryDay = day;
+    });
+
+    const chosenProducts = [];
+    Object.keys(products).forEach((product) => {
+      if (products[product] === true) chosenProducts.push(product);
+    });
+
+    return ({
+      planId,
+      deliveryDay,
+      chosenProducts,
+    });
+  };
+
+  const handleButtonClick = () => {
+    const planDetails = createFinalPlanObject();
+    localStorage.setItem('planDetails', JSON.stringify(planDetails));
+    navigate('finalizar');
+  };
+
   useEffect(() => {
     if (!user || user.planType) {
       navigate('/entrar');
@@ -82,6 +106,7 @@ const Subscribe = () => {
           height="40px"
           marginTop="8px"
           marginBottom="18px"
+          onClickFunction={handleButtonClick}
         />
       </Background>
     </PageContainer>
