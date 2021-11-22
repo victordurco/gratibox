@@ -44,6 +44,7 @@ const App = () => {
           <Route path="/assinar/:id" exact element={<Subscribe />} />
           <Route path="/assinar/:id/finalizar" exact element={<AddressDetails />} />
           <Route path="/assinatura" exact element={<Subscription />} />
+          <Route path="*" element={<Home />} />
         </Routes>
       </BrowserRouter>
     </UserContext.Provider>
