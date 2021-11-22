@@ -3,6 +3,7 @@ import React, { useEffect, useContext, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { Roller } from 'react-spinners-css';
 import UserContext from '../../contexts/UserContext';
 import WelcomeUserTitle from '../shared/WelcomeUserTitle';
 import Image from '../../assets/image03.jpg';
@@ -11,6 +12,7 @@ import { getSubscription } from '../../services/gratibox.services';
 
 const Subscription = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
   const { user } = useContext(UserContext);
   let userFirstName;
@@ -37,6 +39,7 @@ const Subscription = () => {
 
     getSubscription(user.token)
       .then((res) => {
+        setLoading(false);
         setPageInfo({
           name: res.data.name,
           planType: res.data.planType,
@@ -49,11 +52,13 @@ const Subscription = () => {
         });
       })
       .catch(() => {
+        setLoading(false);
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
           text: 'Erro ao carregar dados de assinatura',
         });
+        navigate('/');
       });
   }, [user]);
 
@@ -64,30 +69,37 @@ const Subscription = () => {
         <Subtitle>“Agradecer é arte de atrair coisas boas”</Subtitle>
         <SubscriptionBox>
           <BoxImage src={Image} />
-          <InfoBox>
-            <HorizontalInfoContainer>
-              {'Plano: '}
-              <Value>{pageInfo.planType === 1 ? 'Semanal' : 'Mensal'}</Value>
-            </HorizontalInfoContainer>
-            <HorizontalInfoContainer>
-              {'Data da assinatura: '}
-              <Value>{pageInfo.subscriptionDate}</Value>
-            </HorizontalInfoContainer>
-            <VerticalInfoContainer>
-              {'Próximas entregas: '}
-              <NextDeliveries>
-                {pageInfo.nextDeliveries.map((day) => <Value>{day}</Value>)}
-              </NextDeliveries>
-            </VerticalInfoContainer>
-          </InfoBox>
-          <ProductsBox>
-            {pageInfo.tea
-              && <Product>Chás</Product>}
-            {pageInfo.organics
-              && <Product>Produtos orgânicos</Product>}
-            {pageInfo.incense
-              && <Product>Incensos</Product>}
-          </ProductsBox>
+          {loading
+            ? <Roller color="#4D65A8" width="100px" />
+            : (
+              <>
+                <InfoBox>
+                  <HorizontalInfoContainer>
+                    {'Plano: '}
+                    <Value>{pageInfo.planType === 1 ? 'Semanal' : 'Mensal'}</Value>
+                  </HorizontalInfoContainer>
+                  <HorizontalInfoContainer>
+                    {'Data da assinatura: '}
+                    <Value>{pageInfo.subscriptionDate}</Value>
+                  </HorizontalInfoContainer>
+                  <VerticalInfoContainer>
+                    {'Próximas entregas: '}
+                    <NextDeliveries>
+                      {pageInfo.nextDeliveries.map((day) => <Value>{day}</Value>)}
+                    </NextDeliveries>
+                  </VerticalInfoContainer>
+                </InfoBox>
+                <ProductsBox>
+                  {pageInfo.tea
+            && <Product>Chás</Product>}
+                  {pageInfo.organics
+            && <Product>Produtos orgânicos</Product>}
+                  {pageInfo.incense
+            && <Product>Incensos</Product>}
+                </ProductsBox>
+              </>
+            )}
+
         </SubscriptionBox>
         <Button
           text="Avaliar entregas"
