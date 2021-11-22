@@ -32,13 +32,26 @@ um gif da aplicação bem maneiro -->
 - [x] subscribe to a plan
 - [x] choose between weekly or monthly plan
 - [x] access plan details and upcoming delivery dates
+- [] evaluate deliveries
 
 </br>
 
 ## How to run 🏃‍♀️💨
 
 ```bash
-# Clone this repository
+# Clone the API repository 
+$ git clone <https://github.com/victordurco/gratibox-api>
+
+# Access the API project folder cmd/terminal
+$ cd gratibox-api
+
+# Install the dependencies
+$ npm install
+
+# Follow de instructions in the API repository to start dev server
+ https://github.com/victordurco/gratibox-api
+ 
+# Clone this repository in another folder
 $ git clone <https://github.com/victordurco/gratibox>
 
 # Access the project folder cmd/terminal
