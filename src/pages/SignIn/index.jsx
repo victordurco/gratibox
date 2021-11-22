@@ -42,10 +42,10 @@ const SignIn = () => {
         localStorage.setItem('token', JSON.stringify(response.data.token));
         setUser({ ...response.data });
         setLoading(false);
-        if (!response.data.planType) {
-          navigate('/planos');
+        if (response.data.planType === 1 || response.data.planType === 2) {
+          navigate('/assinatura');
         } else {
-          navigate('/');
+          navigate('/planos');
         }
       }).catch((error) => {
         const { status } = error.response;

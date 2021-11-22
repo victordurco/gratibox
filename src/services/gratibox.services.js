@@ -18,6 +18,8 @@ const getStates = () => axios.get(`${URL_API}/states`);
 
 const subscribe = (token, body) => axios.post(`${URL_API}/subscribe`, body, getConfig(token));
 
+const getSubscription = (token) => axios.get(`${URL_API}/subscription`, getConfig(token));
+
 export {
-  signIn, signUp, getUser, getStates, subscribe,
+  signIn, signUp, getUser, getStates, subscribe, getSubscription,
 };

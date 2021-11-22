@@ -43,6 +43,7 @@ const PageButton = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
+    line-height: ${(props) => (props.fontSize ? props.fontSize : '24px')};
     :hover{
       border: 1px #6471c7ac solid;
       background-color: #6D7CE4;
