@@ -98,7 +98,6 @@ const AddressDetails = () => {
 
   const finishSubscription = () => {
     setLoading(true);
-    localStorage.removeItem('planDetails');
     const subscriptionData = {
       ...planDetails,
       addressData,
@@ -107,8 +106,18 @@ const AddressDetails = () => {
     if (addressDataIsValid()) {
       subscribe(user.token, subscriptionData)
         .then(() => {
+          localStorage.removeItem('planDetails');
           setLoading(false);
-          navigate('/assinatura');
+          Swal.fire({
+            title: 'Sucesso',
+            text: 'Assinatura feita!',
+            icon: 'success',
+            confirmButtonColor: '#6D7CE4',
+            confirmButtonText: 'Entrar',
+          }).then(() => {
+            setLoading(false);
+            navigate('/assinatura');
+          });
         })
         .catch((error) => {
           const { status } = error.response;

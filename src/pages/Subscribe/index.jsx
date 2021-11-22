@@ -26,9 +26,9 @@ const Subscribe = () => {
         friday: false,
       }
       : {
-        day01: false,
-        day10: false,
-        day20: false,
+        1: false,
+        10: false,
+        20: false,
       },
   );
   const [products, setProducts] = useState({
