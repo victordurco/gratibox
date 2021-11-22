@@ -3,9 +3,9 @@
 </br>
 
 <p align="center">
-  <img src="./src/assets/home.gif" width="120" alt="gratibox" />
-   <img src="./src/assets/plans.gif" width="120" alt="gratibox" />
-   <img src="./src/assets/subscription.gif" width="120" alt="gratibox" />
+  <img src="./src/assets/home.gif" width="150" alt="gratibox" />
+   <img src="./src/assets/plans.gif" width="150" alt="gratibox" />
+   <img src="./src/assets/subscription.gif" width="150" alt="gratibox" />
 </p>
 
 </br>
