@@ -5,11 +5,13 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import cep from 'cep-promise';
 import { ArrowDownOutline, ArrowUpOutline } from 'react-ionicons';
+
+import { getStates, subscribe } from '../../services/gratibox.services';
+
 import UserContext from '../../contexts/UserContext';
 import WelcomeUserTitle from '../shared/WelcomeUserTitle';
 import Image from '../../assets/image03.jpg';
 import Button from '../shared/Button';
-import { getStates, subscribe } from '../../services/gratibox.services';
 
 const AddressDetails = () => {
   const navigate = useNavigate();
