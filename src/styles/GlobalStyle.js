@@ -37,6 +37,19 @@ const GlobalStyle = createGlobalStyle`
     font-family: Roboto, sans-serif;
     color: #000000;
     background-image: linear-gradient(to top, #4D65A8,#6D7CE4);
+    ::-webkit-scrollbar {
+        width: 8px;               
+        }
+
+    ::-webkit-scrollbar-track {
+        background: #6D7CE4;        
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: #31416e;    
+        border-radius: 20px;       
+        border: 3px solid #31416e;  
+     }
     }
     ol, ul {
     list-style: none;
