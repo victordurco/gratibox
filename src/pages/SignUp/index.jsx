@@ -149,6 +149,7 @@ const SignUp = () => {
           loading={loading}
         />
       </Form>
+      <SignUpButton onClick={() => navigate('/entrar')}>Já sou grato</SignUpButton>
     </Container>
   );
 };
@@ -171,4 +172,19 @@ const Form = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`;
+
+const SignUpButton = styled.button`
+  width: 60vw;
+  max-width: 400px;
+  height: 56px;
+  color: white;
+  font-size:19px;
+  font-weight: 700;
+  border-radius:10px;
+  background-color: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 `;

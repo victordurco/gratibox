@@ -109,6 +109,11 @@ const Subscription = () => {
           marginTop="8px"
           marginBottom="18px"
           fontSize="18px"
+          onClickFunction={() => Swal.fire({
+            icon: 'info',
+            title: 'Estamos quase...',
+            text: 'Em breve será possível avaliar suas entregas',
+          })}
         />
       </Background>
     </PageContainer>

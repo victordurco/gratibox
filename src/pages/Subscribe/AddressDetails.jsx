@@ -5,11 +5,13 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import cep from 'cep-promise';
 import { ArrowDownOutline, ArrowUpOutline } from 'react-ionicons';
+
+import { getStates, subscribe } from '../../services/gratibox.services';
+
 import UserContext from '../../contexts/UserContext';
 import WelcomeUserTitle from '../shared/WelcomeUserTitle';
 import Image from '../../assets/image03.jpg';
 import Button from '../shared/Button';
-import { getStates, subscribe } from '../../services/gratibox.services';
 
 const AddressDetails = () => {
   const navigate = useNavigate();
@@ -67,6 +69,7 @@ const AddressDetails = () => {
         title: 'Oops...',
         text: 'O nome do destinatário deve conter pelo menos 3 letras',
       });
+      setLoading(false);
       return false;
     }
     if (!addressData.address || !addressData.city || addressData.state === 'Estado' || !addressData.cep) {
@@ -75,6 +78,7 @@ const AddressDetails = () => {
         title: 'Oops...',
         text: 'Preencha todos os campos',
       });
+      setLoading(false);
       return false;
     }
     if (!addressData.address || !addressData.city || addressData.state === 'Estado' || !addressData.cep) {
@@ -83,6 +87,7 @@ const AddressDetails = () => {
         title: 'Oops...',
         text: 'Preencha todos os campos',
       });
+      setLoading(false);
       return false;
     }
     if (!cepRegex.test(addressData.cep)) {
@@ -91,6 +96,7 @@ const AddressDetails = () => {
         title: 'Oops...',
         text: 'Preencha com um cep válido',
       });
+      setLoading(false);
       return false;
     }
     return true;
