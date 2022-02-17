@@ -69,6 +69,7 @@ const AddressDetails = () => {
         title: 'Oops...',
         text: 'O nome do destinatário deve conter pelo menos 3 letras',
       });
+      setLoading(false);
       return false;
     }
     if (!addressData.address || !addressData.city || addressData.state === 'Estado' || !addressData.cep) {
@@ -77,6 +78,7 @@ const AddressDetails = () => {
         title: 'Oops...',
         text: 'Preencha todos os campos',
       });
+      setLoading(false);
       return false;
     }
     if (!addressData.address || !addressData.city || addressData.state === 'Estado' || !addressData.cep) {
@@ -85,6 +87,7 @@ const AddressDetails = () => {
         title: 'Oops...',
         text: 'Preencha todos os campos',
       });
+      setLoading(false);
       return false;
     }
     if (!cepRegex.test(addressData.cep)) {
@@ -93,6 +96,7 @@ const AddressDetails = () => {
         title: 'Oops...',
         text: 'Preencha com um cep válido',
       });
+      setLoading(false);
       return false;
     }
     return true;
@@ -148,7 +152,7 @@ const AddressDetails = () => {
             text: 'Algo deu errado com a assinatura',
           });
         });
-    } else setLoading(false);
+    }
   };
 
   useEffect(() => {
