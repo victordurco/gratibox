@@ -146,7 +146,7 @@ const AddressDetails = () => {
             text: 'Algo deu errado com a assinatura',
           });
         });
-    }
+    } else setLoading(false);
   };
 
   useEffect(() => {
